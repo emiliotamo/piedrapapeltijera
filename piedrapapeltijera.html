@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piedra, Papel o Tijeras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        .opciones {
+            margin: 20px 0;
+        }
+
+        .opciones button {
+            font-size: 3rem;
+            padding: 10px 20px;
+            margin: 10px;
+            border: 2px solid #007bff;
+            border-radius: 50px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .opciones button:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        .resultado {
+            margin-top: 30px;
+            font-size: 1.5rem;
+        }
+
+        .resultado p {
+            font-size: 2rem;
+            margin: 10px 0;
+        }
+
+        .resultado .resaltado {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .resultado .emoji {
+            font-size: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>🪨 📄 ✂️ Piedra, Papel o Tijeras</h1>
+    <p>Selecciona una opción:</p>
+
+    <div class="opciones">
+        <button onclick="jugar('Piedra')">🪨</button>
+        <button onclick="jugar('Papel')">📄</button>
+        <button onclick="jugar('Tijeras')">✂️</button>
+    </div>
+
+    <div class="resultado" id="resultado"></div>
+
+    <script>
+        function jugar(opcionJugador) {
+            const opciones = ['Piedra', 'Papel', 'Tijeras'];
+            const opcionordenador = opciones[Math.floor(Math.random() * 3)];
+
+            const resultado = document.getElementById('resultado');
+            let mensaje = '';
+            
+            if (opcionJugador === opcionordenador) {
+                mensaje = `<p>Empate 🤝</p>
+                           <p>Ambos eligieron <span class="resaltado">${opcionJugador}</span> ${mostrarEmoji(opcionJugador)}</p>`;
+            } else if (
+                (opcionJugador === 'Piedra' && opcionordenador === 'Tijeras') ||
+                (opcionJugador === 'Papel' && opcionordenador === 'Piedra') ||
+                (opcionJugador === 'Tijeras' && opcionordenador === 'Papel')
+            ) {
+                mensaje = `<p>¡Victoria! 🎉</p>
+                           <p>Tu elegiste <span class="resaltado">${opcionJugador}</span> ${mostrarEmoji(opcionJugador)} y el ordenador eligió <span class="resaltado">${opcionordenador}</span> ${mostrarEmoji(opcionordenador)}.</p>`;
+            } else {
+                mensaje = `<p>¡Derrota! 😔</p>
+                           <p>Tu elegiste <span class="resaltado">${opcionJugador}</span> ${mostrarEmoji(opcionJugador)} y el ordenador eligió <span class="resaltado">${opcionordenador}</span> ${mostrarEmoji(opcionordenador)}.</p>`;
+            }
+            resultado.innerHTML = mensaje;
+        }
+
+        function mostrarEmoji(eleccion) {
+            switch (eleccion) {
+                case 'Piedra':
+                    return '🪨';
+                case 'Papel':
+                    return '📄';
+                case 'Tijeras':
+                    return '✂️';
+                default:
+                    return '';
+            }
+        }
+    </script>
+</body>
+</html>
